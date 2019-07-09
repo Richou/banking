@@ -1,5 +1,6 @@
 package com.heanoria.tests.banking.core.domain.operations;
 
+import com.heanoria.tests.banking.core.domain.data.OperationActionType;
 import com.heanoria.tests.banking.core.domain.data.OperationDetails;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

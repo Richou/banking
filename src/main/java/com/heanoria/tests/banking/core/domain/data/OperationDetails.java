@@ -1,6 +1,5 @@
 package com.heanoria.tests.banking.core.domain.data;
 
-import com.heanoria.tests.banking.core.domain.operations.OperationActionType;
 import lombok.Builder;
 import lombok.Data;
 

@@ -1,7 +1,8 @@
 package com.heanoria.tests.banking.core.domain;
 
+import com.heanoria.tests.banking.core.domain.data.OperationActionType;
 import com.heanoria.tests.banking.core.domain.data.OperationDetails;
-import com.heanoria.tests.banking.core.domain.operations.OperationActionType;
+import com.heanoria.tests.banking.core.infra.adapters.InMemoryOperationDetailsAdapter;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,8 @@ public class AccountTest {
     @Test
     @DisplayName("Should new Account has no operations")
     public void shouldNewAccountHasNoOperations() {
-        Account account = new Account();
+        InMemoryOperationDetailsAdapter adapter = new InMemoryOperationDetailsAdapter();
+        Account account = new Account(adapter);
         List<OperationDetails> consult = account.consult();
         Assertions.assertThat(consult).isNotNull();
         Assertions.assertThat(consult).isEmpty();
@@ -24,7 +26,8 @@ public class AccountTest {
     @Test
     @DisplayName("Should get last Balance returns zero with no operations")
     public void shouldBalanceReturnsZeroNoOperations() {
-        Account account = new Account();
+        InMemoryOperationDetailsAdapter adapter = new InMemoryOperationDetailsAdapter();
+        Account account = new Account(adapter);
         double lastBalance = account.getLastBalance();
         Assertions.assertThat(lastBalance).isEqualTo(0d);
     }
@@ -36,7 +39,8 @@ public class AccountTest {
                 .operation(OperationActionType.DEPOSIT).amount(10.0).build();
         OperationDetails operation2 = OperationDetails.builder().balance(15.3).date(LocalDateTime.now())
                 .operation(OperationActionType.WITHDRAWAL).amount(10.0).build();
-        Account account = new Account(Arrays.asList(operation1, operation2));
+        InMemoryOperationDetailsAdapter adapter = new InMemoryOperationDetailsAdapter(Arrays.asList(operation1, operation2));
+        Account account = new Account(adapter);
         double lastBalance = account.getLastBalance();
         Assertions.assertThat(lastBalance).isEqualTo(15.3);
     }

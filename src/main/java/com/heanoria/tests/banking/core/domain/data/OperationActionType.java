@@ -1,4 +1,8 @@
-package com.heanoria.tests.banking.core.domain.operations;
+package com.heanoria.tests.banking.core.domain.data;
+
+import com.heanoria.tests.banking.core.domain.operations.DepositOperationAction;
+import com.heanoria.tests.banking.core.domain.operations.OperationAction;
+import com.heanoria.tests.banking.core.domain.operations.WithdrawalOperationAction;
 
 import java.util.function.Supplier;
 
