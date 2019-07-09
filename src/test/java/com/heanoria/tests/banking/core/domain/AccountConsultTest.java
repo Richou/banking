@@ -1,6 +1,5 @@
 package com.heanoria.tests.banking.core.domain;
 
-import com.heanoria.tests.banking.core.domain.data.OperationActionType;
 import com.heanoria.tests.banking.core.domain.data.OperationDetails;
 import com.heanoria.tests.banking.core.domain.ports.OperationDetailsPort;
 import com.heanoria.tests.banking.core.infra.adapters.InMemoryOperationDetailsAdapter;
@@ -34,8 +33,11 @@ public class AccountConsultTest {
     @DisplayName("Should deposit only one time")
     public void shouldDepositOnlyOneTime() {
         this.account.deposit(4200);
-        Assertions.assertThat(this.account.consult()).isNotEmpty();
-        Assertions.assertThat(this.account.consult()).extracting("operation").containsExactly(DEPOSIT);
+        List<OperationDetails> consultation = this.account.consult();
+        Assertions.assertThat(consultation).isNotEmpty();
+        Assertions.assertThat(consultation).extracting("amount").containsExactly(4200);
+        Assertions.assertThat(consultation).extracting("balance").containsExactly(4200);
+        Assertions.assertThat(consultation).extracting("operation").containsExactly(DEPOSIT);
     }
 
     @Test
@@ -48,6 +50,8 @@ public class AccountConsultTest {
         Assertions.assertThat(consultation).isNotEmpty();
         Assertions.assertThat(consultation).hasSize(3);
         Assertions.assertThat(consultation).extracting("operation").containsExactly(DEPOSIT, DEPOSIT, DEPOSIT);
+        Assertions.assertThat(consultation).extracting("amount").containsExactly(1440, 8945, 9000);
+        Assertions.assertThat(consultation).extracting("balance").containsExactly(1440, 10385, 19385);
         Assertions.assertThat(this.account.getLastBalance()).isEqualTo(19385);
     }
 
@@ -64,6 +68,8 @@ public class AccountConsultTest {
         Assertions.assertThat(consultation).isNotEmpty();
         Assertions.assertThat(consultation).hasSize(4);
         Assertions.assertThat(consultation).extracting("operation").containsExactly(DEPOSIT, WITHDRAWAL, WITHDRAWAL, WITHDRAWAL);
+        Assertions.assertThat(consultation).extracting("amount").containsExactly(3000, 1000, 1552, 400);
+        Assertions.assertThat(consultation).extracting("balance").containsExactly(3000, 2000, 448, 48);
         Assertions.assertThat(this.account.getLastBalance()).isEqualTo(48);
     }
 
@@ -81,6 +87,8 @@ public class AccountConsultTest {
         Assertions.assertThat(consultation).isNotEmpty();
         Assertions.assertThat(consultation).hasSize(7);
         Assertions.assertThat(consultation).extracting("operation").containsExactly(DEPOSIT, WITHDRAWAL, DEPOSIT, WITHDRAWAL, WITHDRAWAL, DEPOSIT, WITHDRAWAL);
+        Assertions.assertThat(consultation).extracting("amount").containsExactly(3000, 1000, 2000, 450, 900, 1599, 400);
+        Assertions.assertThat(consultation).extracting("balance").containsExactly(3000, 2000, 4000, 3550, 2650, 4249, 3849);
         Assertions.assertThat(this.account.getLastBalance()).isEqualTo(3849);
     }
 }
