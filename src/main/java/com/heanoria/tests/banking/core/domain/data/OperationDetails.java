@@ -20,14 +20,14 @@ public class OperationDetails {
     private final LocalDateTime date;
 
     /**
-     * Amount of Operation
+     * Amount of Operation, in cents
      */
-    private final double amount;
+    private final int amount;
 
     /**
-     * The balance of the account after operation occurred
+     * The balance of the account after operation occurred, in cents
      */
-    private final double balance;
+    private final int balance;
 
     public static OperationDetailsBuilder depositOperationBuilder() {
         return OperationDetails.builder().operation(OperationActionType.DEPOSIT);

@@ -8,7 +8,7 @@ import static com.heanoria.tests.banking.core.domain.data.OperationDetails.withd
 
 public class WithdrawalOperationAction implements OperationAction {
     @Override
-    public OperationDetails perform(double amount, double lastBalance) {
+    public OperationDetails perform(int amount, int lastBalance) {
         return withdrawalOperation().amount(amount).date(LocalDateTime.now())
                 .balance(lastBalance - amount).build();
     }

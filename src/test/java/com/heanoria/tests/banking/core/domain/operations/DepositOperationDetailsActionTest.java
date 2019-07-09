@@ -22,11 +22,11 @@ public class DepositOperationDetailsActionTest {
     @DisplayName("Should save money correctly")
     public void shouldSaveMoneyCorrectly() {
         LocalDateTime started = LocalDateTime.now();
-        OperationDetails perform = this.operationAction.perform(20.0, 35.56);
+        OperationDetails perform = this.operationAction.perform(2000, 3556);
         LocalDateTime ended = LocalDateTime.now();
         Assertions.assertThat(perform).isNotNull();
-        Assertions.assertThat(perform.getAmount()).isEqualTo(20.0);
-        Assertions.assertThat(perform.getBalance()).isEqualTo(55.56);
+        Assertions.assertThat(perform.getAmount()).isEqualTo(2000);
+        Assertions.assertThat(perform.getBalance()).isEqualTo(5556);
         Assertions.assertThat(perform.getDate()).isBetween(started, ended);
         Assertions.assertThat(perform.getOperation()).isEqualTo(OperationActionType.DEPOSIT);
     }

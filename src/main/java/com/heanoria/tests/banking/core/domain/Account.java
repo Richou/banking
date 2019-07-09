@@ -15,16 +15,16 @@ public class Account {
         this.operationDetails = operationDetails;
     }
 
-    public double getLastBalance() {
+    public int getLastBalance() {
         return this.operationDetails.findAllOperations().stream().map(OperationDetails::getBalance)
-                .reduce((first, second) -> second).orElse(0d);
+                .reduce((first, second) -> second).orElse(0);
     }
 
-    public void deposit(double amount) {
+    public void deposit(int amount) {
         this.operationAction(OperationActionType.DEPOSIT, amount);
     }
 
-    public void withdrawal(double amount) {
+    public void withdrawal(int amount) {
         this.operationAction(OperationActionType.WITHDRAWAL, amount);
     }
 
@@ -32,7 +32,7 @@ public class Account {
         return new ArrayList<>(this.operationDetails.findAllOperations());
     }
 
-    private void operationAction(OperationActionType type, double amount) {
+    private void operationAction(OperationActionType type, int amount) {
         OperationDetails depositOperation = type.get().perform(amount, getLastBalance());
         this.operationDetails.saveOperation(depositOperation);
     }

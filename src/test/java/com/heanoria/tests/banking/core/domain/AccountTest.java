@@ -29,19 +29,19 @@ public class AccountTest {
         InMemoryOperationDetailsAdapter adapter = new InMemoryOperationDetailsAdapter();
         Account account = new Account(adapter);
         double lastBalance = account.getLastBalance();
-        Assertions.assertThat(lastBalance).isEqualTo(0d);
+        Assertions.assertThat(lastBalance).isEqualTo(0);
     }
 
     @Test
     @DisplayName("Should get correct last balance")
     public void shouldGetCorrectlyAccountBalance() {
-        OperationDetails operation1 = OperationDetails.builder().balance(12.3).date(LocalDateTime.now())
-                .operation(OperationActionType.DEPOSIT).amount(10.0).build();
-        OperationDetails operation2 = OperationDetails.builder().balance(15.3).date(LocalDateTime.now())
-                .operation(OperationActionType.WITHDRAWAL).amount(10.0).build();
+        OperationDetails operation1 = OperationDetails.builder().balance(1230).date(LocalDateTime.now())
+                .operation(OperationActionType.DEPOSIT).amount(1000).build();
+        OperationDetails operation2 = OperationDetails.builder().balance(1530).date(LocalDateTime.now())
+                .operation(OperationActionType.WITHDRAWAL).amount(1000).build();
         InMemoryOperationDetailsAdapter adapter = new InMemoryOperationDetailsAdapter(Arrays.asList(operation1, operation2));
         Account account = new Account(adapter);
         double lastBalance = account.getLastBalance();
-        Assertions.assertThat(lastBalance).isEqualTo(15.3);
+        Assertions.assertThat(lastBalance).isEqualTo(1530);
     }
 }
